@@ -30,10 +30,15 @@ async function generateNewCommit(octokit, owner, repo, branch, message) {
     'GET /repos/{owner}/{repo}/commits',
     { owner, repo, sha: branch, per_page: 1 }
   );
+  const author = {
+    name: data[0].commit.author.name,
+    email: data[0].commit.author.email
+  };
+  console.log(author)
   return {
     tree: data[0].commit.tree.sha,
     parents: [data[0].sha],
-    author: data[0].commit.author,
+    author,
     message
   };
 }
@@ -43,6 +48,7 @@ async function createCommit(octokit, owner, repo, commitInfo) {
     'POST /repos/{owner}/{repo}/git/commits',
     { owner, repo, ...commitInfo }
   );
+  console.log(data);
   return data.sha;
 }
 
