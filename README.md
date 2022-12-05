@@ -16,13 +16,18 @@ This action get the last commit message from the current repo and commits it to 
 
 **Required** The repository name to propapgate the commit to.
 
+## `dest_branch`
+
+**Required** The branch name to propapgate the commit to.
+
 ## Example usage
 
 ```
 - name: Propagate commit
-  uses: vincent-caraccio/propagate-commit@v0.0.1
+  uses: vincent-caraccio/propagate-commit@v0.0.3
   with:
     token: ${{ secrets.TOKEN }} # Personal acces token with write permission on the dest_repo
     dest_owner: my-org
     dest_repo: my-other-repo
+    dest_branch: master
 ```

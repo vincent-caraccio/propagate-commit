@@ -10,6 +10,9 @@ inputs:
   dest_repo:
     name: 'Destination repository name'
     required: true
+  dest_branch:
+    name: 'Destination branch name'
+    required: true
 runs:
   using: 'node16'
   main: 'index.js'
