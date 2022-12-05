@@ -24,7 +24,7 @@ This action get the last commit message from the current repo and commits it to 
 
 ```
 - name: Propagate commit
-  uses: vincent-caraccio/propagate-commit@v0.0.9
+  uses: vincent-caraccio/propagate-commit@v0.0.10
   with:
     token: ${{ secrets.TOKEN }} # Personal acces token with write permission on the dest_repo
     dest_owner: my-org
