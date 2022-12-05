@@ -1,0 +1,15 @@
+name: 'Propagate Commit'
+description: 'Propagates a commit message to another repo'
+inputs:
+  token:
+    name: 'Token'
+    required: true
+  dest_owner:
+    name: 'Destination repository owner'
+    required: true
+  dest_repo:
+    name: 'Destination repository name'
+    required: true
+runs:
+  using: 'node16'
+  main: 'index.js'
