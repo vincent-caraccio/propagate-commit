@@ -20,9 +20,8 @@ const github = require('@actions/github');
 })().catch(error => core.setFailed(error.message));
 
 async function pushEmptyCommit(octokit, destOwner, destRepo, destBranch, commitMessage) {
-  const { sha, parents } = await getLatestSha(octokit, destOwner, destRepo, destBranch);
-  console.log('latestSha', sha, 'parents', parents);
-  const newCommitSha = await createCommit(octokit, destOwner, destRepo, commitMessage, sha, parents);
+  const latestSha = await getLatestSha(octokit, destOwner, destRepo, destBranch);
+  const newCommitSha = await createCommit(octokit, destOwner, destRepo, commitMessage, latestSha);
   console.log('newCommitSha', newCommitSha);
   return updateRef(octokit, destOwner, destRepo, destBranch, newCommitSha);
 }
@@ -32,13 +31,13 @@ async function getLatestSha(octokit, owner, repo, branch) {
     'GET /repos/{owner}/{repo}/commits',
     { owner, repo, sha: branch, per_page: 1 }
   );
-  return { sha: data[0].commit.tree.sha, parents: data[0].parents.map(p => p.sha) };
+  return data[0].commit.tree.sha;
 }
 
-async function createCommit(octokit, owner, repo, message, tree, parents) {
+async function createCommit(octokit, owner, repo, message, tree) {
   const { data } = await octokit.request(
     'POST /repos/{owner}/{repo}/git/commits',
-    { owner, repo, message, tree, parents }
+    { owner, repo, message, tree, parents: [tree] }
   );
   console.log(data);
   return data.sha;
