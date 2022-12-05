@@ -21,7 +21,7 @@ const github = require('@actions/github');
 
 async function pushEmptyCommit(octokit, destOwner, destRepo, destBranch, commitMessage) {
   const lastCommitInfo = await generateNewCommit(octokit, destOwner, destRepo, destBranch, commitMessage);
-  const newCommitSha = await createCommit(octokit, destOwner, destRepo, commitMessage, lastCommitInfo);
+  const newCommitSha = await createCommit(octokit, destOwner, destRepo, lastCommitInfo);
   return updateRef(octokit, destOwner, destRepo, destBranch, newCommitSha);
 }
 
