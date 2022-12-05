@@ -2,6 +2,7 @@
 
 const core = require('@actions/core');
 const github = require('@actions/github');
+
 (async function () {
   try {
     const token = core.getInput('token');
@@ -9,7 +10,11 @@ const github = require('@actions/github');
     const destRepo = core.getInput('dest_repo');
     const octokit = github.getOctokit(token);
 
-    const commitMessage = github.event.head_commit.message;
+
+    console.log(github.context)
+    console.log(github.event)
+
+    const commitMessage = 'yo';
     await pushEmptyCommit(octokit, destOwner, destRepo, commitMessage);
   } catch (error) {
     core.setFailed(error.message);
