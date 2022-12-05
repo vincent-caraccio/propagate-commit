@@ -29,5 +29,6 @@ async function getLatestSha(octokit, owner, repo, branch) {
     'GET /repos/{owner}/{repo}/git/ref/{ref}',
     { owner, repo, ref: `heads/${branch}` }
   );
-  return refList[0].object.sha;
+  console.log(refList);
+  return refList.object.sha;
 }
