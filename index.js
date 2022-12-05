@@ -34,7 +34,7 @@ async function generateNewCommit(octokit, owner, repo, branch, message) {
     tree: data[0].commit.tree.sha,
     parents: [data[0].sha],
     author: github.context.payload.pusher,
-    message
+    message: `[${github.context.payload.repository.name}] ${message}`
   };
 }
 
