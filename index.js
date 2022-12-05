@@ -29,7 +29,7 @@ async function pushEmptyCommit(octokit, destOwner, destRepo, destBranch, commitM
 
 async function getLatestSha(octokit, owner, repo, branch) {
   const { data } = await octokit.request(
-    'GET /repos/{owner}/{repo}/git/commits',
+    'GET /repos/{owner}/{repo}/commits',
     { owner, repo, sha: branch, per_page: 1 }
   );
   return data[0].commit.tree.sha;
