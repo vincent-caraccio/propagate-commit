@@ -15,9 +15,13 @@ const github = require('@actions/github');
 
     await pushEmptyCommit(octokit, destOwner, destRepo, destBranch, commitMessage);
   } catch (error) {
+    console.log(error);
     core.setFailed(error.message);
   }
-})().catch(error => core.setFailed(error.message));
+})().catch(error => {
+  console.log(error);
+  core.setFailed(error.message);
+});
 
 async function pushEmptyCommit(octokit, destOwner, destRepo, destBranch, commitMessage) {
   const lastCommitInfo = await generateNewCommit(octokit, destOwner, destRepo, destBranch, commitMessage);
